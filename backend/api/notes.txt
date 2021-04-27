@@ -1,0 +1,36 @@
+service.py
+
+class UsersService(Resource):    
+    def __init__(self):
+        print("Users Service Class Initialization")
+
+    def add_user():
+        """This method will add a new user"""
+        print("<add_user()>")
+        body = request.get_json()
+        users = User(**body)
+        users.hash_password()
+        users.save()
+        return jsonify(users)
+
+------------------------------------------------------------------------
+
+model.py
+
+from flask_bcrypt import generate_password_hash, check_password_hash
+
+def hash_password(self):
+        """This method creates a password hash"""
+        self.password = generate_password_hash(self.password).decode('utf8')
+
+def check_password(self, password):
+        """This method checks if password entered by the user to login matches the password saved in the database"""
+        return check_password_hash(self.password, password)
+
+----------------------------
+
+app.py
+
+from flask_bcrypt import Bcrypt
+
+bcrypt = Bcrypt(app)
