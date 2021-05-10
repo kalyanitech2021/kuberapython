@@ -15,7 +15,7 @@ export class StockComponent implements OnInit {
     private stockService: StockService,
     private route: ActivatedRoute,
     private router: Router,
-    private readonly loginService: LoginService) { }
+    private loginService: LoginService) { }
 
     public get value(): string {
       return this.loginService.input;

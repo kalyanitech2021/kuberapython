@@ -22,6 +22,5 @@ export class RegisterService {
 
   create(users) {
     return this.http.post(usersUrl, users);
-  }
-  
+  } 
 }

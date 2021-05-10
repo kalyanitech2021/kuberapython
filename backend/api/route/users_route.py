@@ -9,3 +9,7 @@ class UsersRoute:
     @app.route('/users', methods=['POST'])
     def add_user():
         return UsersController.add_user()
+
+    @app.route('/users/list')
+    def get_users():
+        return UsersController.get_users()

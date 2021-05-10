@@ -15,6 +15,14 @@ class UsersService():
             users = User(**body).save()
             return jsonify(users)
         except NotUniqueError:
-            print("Error: Username already exists. Please enter a different username.")
+            print("Error: Username already exists. Please enter a different one.")
+            return jsonify({"status": 401, "reason": "Username already exists."})
         else:
             print("User registered successfully")
+
+    def get_users():
+        """This method will list all the users"""
+        print("<get_users()>")
+        users = User.objects()
+        return jsonify(users)
+        

@@ -12,7 +12,7 @@ class DividendService:
         """This method will add a new dividend"""
         print("<add_dividend()>")
         body = request.get_json()
-        total_dividend = body['quantity'] * body['div_per_share']
+        total_dividend = float(body['quantity']) * float(body['div_per_share'])
         body['total_dividend'] = total_dividend
         dividends = Dividend(**body).save()
         return jsonify(dividends)

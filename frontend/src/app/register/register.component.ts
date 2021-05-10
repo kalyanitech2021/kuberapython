@@ -46,9 +46,15 @@ export class RegisterComponent implements OnInit {
         response => {
           this.currentUser = response;
           console.log("<addUser>: response is -- ", response);
-          this.show = !this.show;
-          window.alert("User registered successfully!");
-          this.router.navigate(['/login']);
+          if (this.currentUser.status === 401) {
+            window.alert("Username already exists. Please enter a different one.");
+            this.router.navigate(['/register']);
+          }
+          else {
+            this.show = !this.show;
+            window.alert("User registered successfully!");
+            this.router.navigate(['/login']);
+          }
         });
         error => {
           console.log(error);

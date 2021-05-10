@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RegisterService } from '../register.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Login } from './login';
 import { LoginService } from '../login.service';
 
 @Component({
@@ -12,14 +12,17 @@ export class LoginComponent implements OnInit {
   
   show:boolean = true;
 
-  user_id: string = "";
-  password: string = "";
+  currentUser: any;
+
+  login: Login = {
+    user_id: "",
+    password: ""
+  }
 
   constructor(
-    private registerService: RegisterService,
     private route: ActivatedRoute,
     private router: Router,
-    private readonly loginService: LoginService) {}
+    private loginService: LoginService) {}
 
     public input: string = "";
 
@@ -28,12 +31,34 @@ export class LoginComponent implements OnInit {
     this.loginService.input = a_oEvent.currentTarget.value;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   loginUser() {
     this.show = !this.show;
-    this.router.navigate(['/portfolio/' + this.input]);
+
+      const user = {
+        user_id: this.login.user_id,
+        password: this.login.password
+      };
+  
+      console.log("<loginUser>: request is -- ", user);
+  
+      this.loginService.create(user)
+        .subscribe(
+          response => {
+            this.currentUser = response;
+            console.log("<loginUser>: response is -- ", response);
+            if (this.currentUser.status === 401) {
+              window.alert("Username or Password is incorrect!");
+              this.router.navigate(['/login']);
+            }
+            else
+              this.router.navigate(['/portfolio/' + this.input]);
+          });
+          error => {
+            console.log(error);
+          };
   }
 
   registerUser() {

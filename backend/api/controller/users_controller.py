@@ -7,3 +7,6 @@ class UsersController:
 
     def add_user():
         return UsersService.add_user()
+
+    def get_users():
+        return UsersService.get_users()

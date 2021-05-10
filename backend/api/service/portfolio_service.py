@@ -87,4 +87,6 @@ class PortfolioService:
                     print("Added to PortfolioLineItems: ", portfolioLineItems)
 
         print("\n\n Final result sent back as PortfolioLineItems --> ", portfolioLineItems)
+        
         return jsonify(portfolioLineItems)
+        
